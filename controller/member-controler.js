@@ -71,21 +71,15 @@ const moveMember = async (req, res) => {
   await member.save();
 
   if (req.body.note.length > 0) {
-    updateMemberNotes(req.body.note, member);
+    notes.forEach((note) => {
+      updatedMember.note.push(note);
+    });
   }
 
   res.status(200).json({
     description: "The member has been changed client",
     result: member,
   });
-};
-
-const updateMemberNotes = (notes, member) => {
-  const updatedMember = member;
-  notes.forEach((note) => {
-    updatedMember.note.push(note);
-  });
-  return updatedMember;
 };
 
 module.exports = {
