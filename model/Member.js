@@ -11,7 +11,7 @@ const memberSchema = new Schema({
       timestamp: { type: Date, default: Date.now },
     },
   ],
-  clientId: { type: String },
+  clientId: { type: mongoose.Schema.Types.ObjectId, ref: "Client" },
 });
 
 module.exports = mongoose.model("Member", memberSchema);

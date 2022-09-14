@@ -56,12 +56,11 @@ const moveMember = async (req, res) => {
   const member = await Member.findOne({
     name: req.body.memberName.toLowerCase(),
   });
-  const currentClient = await Client.findOne({
-    companyName: req.body.currentClient,
+  const newClient = await Client.findOne({
+    companyName: req.body.newClient.toLowerCase(),
   });
-  const newClient = await Client.findOne({ companyName: req.body.newClient });
 
-  if (!currentClient && !newClient && !member) {
+  if (!newClient && !member) {
     return res
       .status(403)
       .json({ message: `Request fail, check if the fields are correct` });
@@ -69,11 +68,11 @@ const moveMember = async (req, res) => {
 
   member.clientId = newClient._id;
 
+  await member.save();
+
   if (req.body.note.length > 0) {
     updateMemberNotes(req.body.note, member);
   }
-
-  await Member.updateOne(member);
 
   res.status(200).json({
     description: "The member has been changed client",
