@@ -69,7 +69,3 @@ PATH: /member/move-member
   }]
 }
 ```
-
-## Some final notes / TODOS
-
-Unitest and some validations are left to do.
